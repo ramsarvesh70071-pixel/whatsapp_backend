@@ -16,19 +16,19 @@ public class ChatController {
     private SimpMessagingTemplate messagingTemplate;
 
     @Autowired
-    private ChatMessageRepository repository;
+    private ChatMessageRepository repository; // <-- Yahan naam 'repository' hai
+    @MessageMapping("/chat.send")
+    public void sendMessage(@Payload ChatMessage message) {
+        System.out.println("Message received in backend: " + message.getContent()); // Console mein check karein
+        message.setTimestamp(LocalDateTime.now());
 
-    @MessageMapping("/chat")
-    public void processMessage(@Payload ChatMessage chatMessage) {
-        chatMessage.setTimestamp(LocalDateTime.now());
+        repository.save(message); // Agar ye line chalegi toh pgAdmin mein data dikhega
+        System.out.println("Message saved to database!");
 
-        // 1. Message database mein save karo
-        ChatMessage savedMsg = repository.save(chatMessage);
-
-        // 2. Samne wale user ko turant bhej do
         messagingTemplate.convertAndSendToUser(
-                chatMessage.getRecipientId(), "/queue/messages",
-                savedMsg
+                message.getRecipientId(),
+                "/queue/messages",
+                message
         );
     }
 }
