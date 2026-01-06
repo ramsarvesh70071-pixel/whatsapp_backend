@@ -1,9 +1,9 @@
 spring:
   # 1. PostgreSQL Configuration
   datasource:
-    url: jdbc:postgresql://localhost:5432/whatsappdb
-    username: postgres
-    password: 1234 # Apna password yahan likhein
+    url: postgresql://whatsappdb_f45k_user:Iygnr6qHzocbCkRTuTEnhIsQFY10oBF2@dpg-d5e3k20gjchc739gg8jg-a.oregon-postgres.render.com/whatsappdb_f45k
+    username: whatsappdb_f45k_user
+    password: Iygnr6qHzocbCkRTuTEnhIsQFY10oBF2 # Apna password yahan likhein
     driver-class-name: org.postgresql.Driver
 
   jpa:
