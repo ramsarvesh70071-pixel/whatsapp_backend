@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, String> {
     List<User> findAllByOnline(boolean online);
+    // Phone number se search karne ke liye defaultfindById() kaafi hai
 }
