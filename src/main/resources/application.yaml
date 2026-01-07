@@ -5,7 +5,7 @@ spring:
       keepalive-time: 60000 # 1 minute
       connection-timeout: 30000
     # 'jdbc:' prefix zaroori hai
-    url: jdbc:postgresql://dpg-d5e3k20gjchc739gg8jg-a.oregon-postgres.render.com/whatsappdb_f45k
+    url: postgresql://whatsappdb_f45k_user:Iygnr6qHzocbCkRTuTEnhIsQFY10oBF2@dpg-d5e3k20gjchc739gg8jg-a.oregon-postgres.render.com/whatsappdb_f45k
     username: whatsappdb_f45k_user
     password: Iygnr6qHzocbCkRTuTEnhIsQFY10oBF2
     driver-class-name: org.postgresql.Driver
