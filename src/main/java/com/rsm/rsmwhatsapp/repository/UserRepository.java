@@ -2,9 +2,15 @@ package com.rsm.rsmwhatsapp.repository;
 
 import com.rsm.rsmwhatsapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User, String> {
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> { // String ki jagah Long (ID numeric hai)
+
+    // 1. Online status ke hisaab se users dhoondna
     List<User> findAllByOnline(boolean online);
-    // Phone number se search karne ke liye defaultfindById() kaafi hai
+
+    // 2. FIXED: Phone number se search karne ke liye (Login/Register ke liye zaroori hai)
+    User findByPhoneNumber(String phoneNumber);
 }
