@@ -1,32 +1,27 @@
 package com.rsm.rsmwhatsapp.service;
 
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import com.google.firebase.cloud.StorageClient;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
-import java.util.UUID;
+import java.util.Map;
 
 @Service
 public class FileStorageService {
 
+    // TODO: Inhe apne Cloudinary Dashboard (API Keys) se replace karein
+    private final Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+            "cloud_name", "ddhr7ioqj",
+            "api_key", "743745816737187",
+            "api_secret", "w3ErT-gRQn32N0Q2ZXF8VYI2s4k"
+    ));
+
     public String saveFile(MultipartFile file) throws IOException {
-        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-        Storage storage = StorageClient.getInstance().bucket().getStorage();
+        // Direct Cloudinary par upload
+        Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
 
-        // Firebase Storage bucket ka naam (Aapke Screenshot 94 se mil jayega)
-        String bucketName = "rsm-whatsapp-backend.appspot.com";
-
-        BlobId blobId = BlobId.of(bucketName, fileName);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(file.getContentType()).build();
-
-        storage.create(blobInfo, file.getBytes());
-
-        // File ka public URL return karna
-        return String.format("https://firebasestorage.googleapis.com/v0/b/%s/o/%s?alt=media",
-                bucketName, fileName);
+        // Uploaded image ka secure URL return karna
+        return uploadResult.get("secure_url").toString();
     }
 }
