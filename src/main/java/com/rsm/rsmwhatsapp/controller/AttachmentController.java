@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/media")
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/messages") // Flutter isi path par bhej raha hai
 public class AttachmentController {
 
     @Autowired
@@ -18,8 +18,11 @@ public class AttachmentController {
     @PostMapping("/upload")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
+            // Firebase par file save hogi aur URL milega
             String fileUrl = fileStorageService.saveFile(file);
-            return ResponseEntity.ok(Map.of("url", fileUrl));
+
+            // Flutter code "fileUrl" key dhoond raha hai
+            return ResponseEntity.ok(Map.of("fileUrl", fileUrl));
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Upload failed: " + e.getMessage());
         }

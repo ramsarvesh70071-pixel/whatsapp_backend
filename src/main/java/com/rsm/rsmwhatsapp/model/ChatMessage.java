@@ -11,26 +11,24 @@ public class ChatMessage {
     private Long id;
 
     private String senderId;
-    private String recipientId; // <-- Iska naam check karein
+    private String recipientId;
     private String content;
-    private LocalDateTime timestamp; // <-- Iska naam check karein
+    private String type; // Naya field: "TEXT" ya "IMAGE"
+    private LocalDateTime timestamp;
 
-    // Default Constructor
     public ChatMessage() {}
 
-    // Manual Getters and Setters (Error khatam karne ke liye)
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
     public String getSenderId() { return senderId; }
     public void setSenderId(String senderId) { this.senderId = senderId; }
-
     public String getRecipientId() { return recipientId; }
     public void setRecipientId(String recipientId) { this.recipientId = recipientId; }
-
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
-
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
     public LocalDateTime getTimestamp() { return timestamp; }
     public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
 }
